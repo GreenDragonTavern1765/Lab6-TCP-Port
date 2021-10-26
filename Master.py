@@ -5,6 +5,8 @@ import os
 
 s = socket.socket()
 host = socket.gethostname()
+ipAddr = socket.gethostbyname(host)
+print(ipAddr)
 port = 8000
 s.bind(('', port))
 print('Waiting for connections...')
