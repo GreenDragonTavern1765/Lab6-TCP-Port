@@ -9,6 +9,7 @@ def clientProgram(port):
     host = socket.gethostname()
     deviceInfo(host)
 
+    host = '192.168.1.153'
     clientSocket = socket.socket()
     print('Connecting to server...')
     try:
