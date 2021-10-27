@@ -1,22 +1,28 @@
 import socket
-from datetime import datetime
+import datetime
 
-# Write a program which specifies at run time:
-#   • a port number on which to listen for incoming connections.
-#   • the name of a log file
+def deviceInfo(host):
+    print(host + '(' + socket.gethostbyname(host) +
+          ') initialized @ ' + str(datetime.datetime.now()))
 
 def clientProgram(port):
     host = socket.gethostname()
-    addr = socket.gethostbyname(host)
-    print(addr)
+    deviceInfo(host)
+
     clientSocket = socket.socket()
-    print('Attempting to connect...')
+    print('Connecting to server...')
     try:
         clientSocket.connect((host, port))
     except(ConnectionRefusedError):
         print('--> ERROR: Connection denied')
-    else:
-        print('Connection Established...')
+        return
+    print('Connection Established...')
+    while True:
+        now = datetime.datetime.now()
+        time = '(' + now.strftime('%H:%M') + ')'
+        print(time, end = ': ')
+        message = input()
+        clientSocket.send(message.encode())
     clientSocket.close()
 
 if __name__ == '__main__':
