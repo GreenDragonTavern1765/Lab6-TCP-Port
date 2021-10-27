@@ -1,30 +1,52 @@
 import socket
-import datetime
+from datetime import datetime
 
-def deviceInfo(host):
-    print(host + '(' + socket.gethostbyname(host) +
-          ') initialized @ ' + str(datetime.datetime.now()))
+def clientProgram():
 
-def clientProgram(port):
     host = socket.gethostname()
-    deviceInfo(host)
+    port = 8000
 
-    host = '192.168.1.153'
     clientSocket = socket.socket()
-    print('Connecting to server...')
-    try:
-        clientSocket.connect((host, port))
-    except(ConnectionRefusedError):
-        print('--> ERROR: Connection denied')
-        return
+    clientSocket.connect((host, port))
     print('Connection Established...')
-    while True:
-        now = datetime.datetime.now()
-        time = '(' + now.strftime('%H:%M') + ')'
-        print(time, end = ': ')
-        message = input()
+
+    message = input(' -> ')
+    clientSocket.send(message.encode())
+    data = clientSocket.recv(1024).decode()
+
+    while (data == '--> ERROR: File not found'):
+        print('--> ERROR: File not found')
+        message = input(' -> ')
         clientSocket.send(message.encode())
+        data = clientSocket.recv(1024).decode()
+    makeHTML(data)
+
+    print('File successfully transfered...')
+    print('Connection Terminated... ')
     clientSocket.close()
 
+def makeHTML(contents):
+
+    list = contents.splitlines()
+    for i in range(0, len(list)):
+        if list[i] == '</body>':
+            break
+
+    now = datetime.now()
+    ipAddress = "\t<p>My IP Address is " + str(socket.gethostbyname(socket.gethostname())) + "</p>"
+    date = "\t<p>Date and Time is " + str(now) + "</p>"
+
+    list.insert(i, date)
+    list.insert(i, ipAddress)
+    result = '\n'.join(list)
+    writeHTML(result)
+
+def writeHTML(contents):
+    file = open("final.html", "w")
+    file.write(contents)
+    file.close()
+
 if __name__ == '__main__':
-    clientProgram(8000)
+    clientProgram()
+
+
