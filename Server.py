@@ -6,6 +6,7 @@ def serverProgram(port):
     serverSocket.bind((host, port))
 
     serverSocket.listen(2)
+    print('Waiting for clients to connect...')
     connection, address = serverSocket.accept()
     print('Connection Established: ' + str(address))
 
