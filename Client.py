@@ -9,16 +9,15 @@ def clientProgram(port):
     host = socket.gethostname()
     addr = socket.gethostbyname(host)
     print(addr)
-    # clientSocket = socket.socket()
-    # print('Attempting to connect...')
-    # try:
-    #     clientSocket.connect((host, port))
-    # except(ConnectionRefusedError):
-    #     print('--> ERROR: Connection denied')
-    # else:
-    #     print('Connection Established...')
-    #
-    # clientSocket.close()
+    clientSocket = socket.socket()
+    print('Attempting to connect...')
+    try:
+        clientSocket.connect((host, port))
+    except(ConnectionRefusedError):
+        print('--> ERROR: Connection denied')
+    else:
+        print('Connection Established...')
+    clientSocket.close()
 
 if __name__ == '__main__':
     clientProgram(8000)

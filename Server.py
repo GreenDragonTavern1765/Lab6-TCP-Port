@@ -5,12 +5,13 @@ def serverProgram(port):
     serverSocket = socket.socket()
     serverSocket.bind((host, port))
 
-    serverSocket.listen(2)
-    print('Waiting for clients to connect...')
-    connection, address = serverSocket.accept()
-    print('Connection Established: ' + str(address))
+    while True:
+        serverSocket.listen(10)
+        print('Waiting for clients...')
+        connection, address = serverSocket.accept()
+        print('Connection established: Client = ' + str(address[0]))
 
-    connection.close()
+        connection.close()
 
 if __name__ == '__main__':
     serverProgram(8000)
