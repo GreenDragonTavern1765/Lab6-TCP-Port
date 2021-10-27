@@ -6,8 +6,7 @@ from datetime import datetime
 #   • the name of a log file
 
 def clientProgram(port):
-    host = socket.gethostname()
-    print('Hostname:', host, '\nPort:', port)
+    host = '192.168.1.153'
 
     clientSocket = socket.socket()
     print('Attempting to connect...')
