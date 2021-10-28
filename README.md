@@ -21,3 +21,8 @@ then print that the connection has been established. Finally, the TCP connection
 ![server-first-run](https://user-images.githubusercontent.com/89669624/138945602-d5a39ffa-a6f1-4585-a94e-62b953013664.jpg)
 This is the first run of the server program (or the server side of the project), it is looking for a connection, or listening to the given port
 number, and once a connection is established, prints successful, and then closes connection.
+
+### Additions to the Lab
+An addition to this lab, is that the local host URL of the html file is being accessed via the requests library in Python, which writes to
+a logFile the basic header information. It is added as a dictionary that is iterated through, and casted to a string, then written to the 
+logFile.

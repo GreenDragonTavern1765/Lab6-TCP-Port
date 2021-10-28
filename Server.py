@@ -1,4 +1,5 @@
 import socket
+import requests
 
 def serverProgram():
 
@@ -22,10 +23,18 @@ def serverProgram():
         else:
             connection.send(serverData.encode())
 
-    print(type(connection))
     print('File contents successfully transfered...')
     print('Connection Terminated: ' + str(address))
+    writeToLogFile('logFile.txt')
     connection.close()
+
+def writeToLogFile(logFile):
+    file = open(logFile, "w")
+    headers = {'content-type': 'multipart/form-data'}
+    r = requests.post('http://localhost:63342/Lab6-TCP-Port/final.html?_ijt=j9mooak0t05ugronons8dupeec&_ij_reload=RELOAD_ON_SAVE', headers=headers)
+    for i, j in r.headers.items():
+        file.write(i + ":" + j + '\n')
+    file.close()
 
 def readFromFile(fileName):
     try:

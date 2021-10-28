@@ -48,5 +48,3 @@ def writeHTML(contents):
 
 if __name__ == '__main__':
     clientProgram()
-
-
